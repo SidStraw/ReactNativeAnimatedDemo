@@ -17,7 +17,7 @@ const App = () => {
 
     Animated.timing(sidebarAnimationValue, {
       toValue: scaleValue.current,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start(({finished}) => {
       if (finished) {
         const animatedConfig = {
@@ -43,10 +43,14 @@ const App = () => {
             flex: 1,
             width: 200,
             backgroundColor: '#427685',
-            marginLeft: sidebarAnimationValue.interpolate({
-              inputRange: [0, 1],
-              outputRange: [-200, 0],
-            }),
+            transform: [
+              {
+                translateX: sidebarAnimationValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-200, 0],
+                }),
+              },
+            ],
           }}>
           {buttonAnimationValue.map((animated, i) => (
             <Animated.View
